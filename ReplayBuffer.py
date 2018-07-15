@@ -17,11 +17,11 @@ class ReplayBuffer:
         self.memory = deque(maxlen=self.buffer_size)  # internal memory (deque)
         self.temp = []
         self.batch_size = batch_size
-        self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done"])
+        self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done", "q_val"])
 
-    def add(self, state, action, reward, next_state, done):
+    def add(self, state, action, reward, next_state, done, q_val):
         """Add a new experience to memory."""
-        e = self.experience(state, action, reward, next_state, done)
+        e = self.experience(state, action, reward, next_state, done, q_val)
         self.temp.append(e)
     
     def reset(self):
@@ -34,13 +34,15 @@ class ReplayBuffer:
         
     def sample(self, batch_size=64):
         """sample a batch of experiences from memory using priorities weight as probs"""
-        sorted_memory = sorted(self.memory, key=lambda r: abs(r[2]), reverse=True)
+        sorted_memory = sorted(self.memory, key=lambda r: r[2], reverse=True)
         probs = [0.95 ** i for i in range(len(sorted_memory))]
         sum_p = sum(probs)
         probs = [p / sum_p for p in probs]
         ids = np.random.choice(range(len(self.memory)), replace=False, size=batch_size, p=probs)
         return np.array(sorted_memory)[ids]
-        # return np.array(random.sample(self.memory, k=self.batch_size))
+
+    def sample_simple(self, batch_size=64):
+        return np.array(random.sample(self.memory, k=self.batch_size))
 
 
     def __len__(self):

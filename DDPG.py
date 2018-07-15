@@ -15,9 +15,9 @@ class DDPG():
         self.build_models()
 
         # Noise process
-        self.exploration_mu = 0
+        self.exploration_mu = 0.3
         self.exploration_theta = 0.15
-        self.exploration_sigma = 0.45
+        self.exploration_sigma = 0.35
 
         # Replay memory
         self.buffer_size = buffer_size
@@ -25,9 +25,9 @@ class DDPG():
         self.memory = ReplayBuffer(self.buffer_size, self.batch_size)
 
         # Algorithm parameters
-        self.gamma = 0.999  # discount factor
+        self.gamma = 0.95  # discount factor
         self.tau_critic = 0.005  # for soft update of target parameters
-        self.tau_actor = 0.002
+        self.tau_actor = 0.005
 
     def build_models(self):
         # Actor (Policy) Model
@@ -50,22 +50,21 @@ class DDPG():
             for step in range(train_steps):
                 experiences = self.memory.sample(self.batch_size)
                 self.learn(experiences)
-        
 
         return state
 
     def step(self, state, action, reward, next_state, done, learning, train_steps=1):
 
         # update priorities of replaybuffer based on the error
-        self.memory.add(state, action, reward, next_state, done)
-
+        # q_val = self.critic_local.model.predict([state.reshape(-1, 2), action])[0]
+        self.memory.add(state, action, reward, next_state, done, 1)
         # Roll over last state and action
         self.last_state = next_state
 
     def act(self, state):
         """Returns actions for given state(s) as per current policy."""
         state = np.reshape(state, [-1, self.state_size])
-        action = self.actor_target.model.predict(state)[0]
+        action = self.actor_local.model.predict(state)[0]
         return list(action)  # add some noise for exploration
 
     def learn(self, experiences):
