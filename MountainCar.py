@@ -20,8 +20,8 @@ env = gym.make('MountainCarContinuous-v0')
 env = env.unwrapped
 action_low = -1
 action_high = 1
-buffer_size = 30000
-batch_size = 512
+buffer_size = 16000
+batch_size = 1024
 agent = DDPG(action_low, action_high, buffer_size, batch_size)
 agent.actor_local.reset_weights()
 agent.actor_target.reset_weights()
@@ -56,7 +56,7 @@ for i_episode in range(1, episodes):
         acting = True
 
     
-    if done and acting:
+    if done and acting and i_episode > (last_reset+10):
         # epochs = max(epochs-15, 200)
         epsilon = max(epsilon-0.1, 0)
     else:
@@ -67,7 +67,7 @@ for i_episode in range(1, episodes):
             epsilon = 1
             agent.build_models()
             stuck = 0
-            agent.memory.reset()
+            # agent.memory.reset()
             last_reset = i_episode
             agent.actor_local.reset_weights()
             agent.actor_target.reset_weights()
