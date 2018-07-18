@@ -1,0 +1,600 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"acti",
+				"activation\tparam"
+			],
+			[
+				"kernel",
+				"kernel_initializer\tparam"
+			],
+			[
+				"ker",
+				"kernel_initializer\tparam"
+			],
+			[
+				"reset",
+				"reset_episode\tfunction"
+			],
+			[
+				"pl",
+				"plot_Q\tfunction"
+			],
+			[
+				"train",
+				"training"
+			],
+			[
+				"action",
+				"action_mean\tstatement"
+			],
+			[
+				"reward",
+				"final_reward"
+			],
+			[
+				"rand",
+				"randint\tfunction"
+			],
+			[
+				"crit",
+				"critic_target\tstatement"
+			],
+			[
+				"final_",
+				"final_test_r\tstatement"
+			],
+			[
+				"Actio",
+				"actions_list\tstatement"
+			],
+			[
+				"rewa",
+				"rewards_list"
+			],
+			[
+				"ran",
+				"randn\tfunction"
+			],
+			[
+				"kern",
+				"kernel_regularizer\tparam"
+			],
+			[
+				"ke",
+				"kernel_regularizer\tparam"
+			],
+			[
+				"rando",
+				"RandomUniform\tclass"
+			],
+			[
+				"agent",
+				"agent_action\tstatement"
+			],
+			[
+				"distan",
+				"distance_z\tstatement"
+			],
+			[
+				"dropout",
+				"Dropout\tclass"
+			],
+			[
+				"Re",
+				"ReplayBuffer\tclass"
+			],
+			[
+				"st",
+				"start_act"
+			],
+			[
+				"rewar",
+				"rewards_hist"
+			],
+			[
+				"priori",
+				"prioritysum"
+			],
+			[
+				"batch",
+				"batch_size"
+			],
+			[
+				"prio",
+				"prioritysum"
+			],
+			[
+				"new",
+				"new_Q"
+			],
+			[
+				"ne",
+				"next_state"
+			],
+			[
+				"priotiy",
+				"prioritysum"
+			],
+			[
+				"tot",
+				"total_horas"
+			],
+			[
+				"df_err",
+				"df_erros_job"
+			],
+			[
+				"num",
+				"num_threads"
+			],
+			[
+				"df_renova",
+				"df_renova_job"
+			],
+			[
+				"df_novo",
+				"df_novo_job"
+			],
+			[
+				"blendi",
+				"blend_it_all"
+			],
+			[
+				"space-",
+				"space-between"
+			],
+			[
+				"your",
+				"your_birthday"
+			],
+			[
+				"rg",
+				"rg"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: package",
+				"Package Control: Install Package"
+			],
+			[
+				"sublimegit",
+				"SublimeGit: Documentation"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"git init",
+				"Git: Init"
+			],
+			[
+				"add re",
+				"Package Control: Add Repository"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Git: Init"
+			],
+			[
+				"package",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 408.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0"
+	],
+	"file_history":
+	[
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/README.md",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/Actor.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/DDPG.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/OUNoise.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/MountainCar.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/Critic.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/mountaincarOLD/MountainCarContinuous v0/Critic.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/mountaincarOLD/MountainCarContinuous v0/Actor.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0 - 1.0/Actor.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0 - 1.0/Critic.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0 - 1.0/ReplayBuffer.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0 - 1.0/OUNoise.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0 - 1.0/MountainCar.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0 - 1.0/DDPG.py",
+		"/C/Users/Andre/Dropbox/freela/RoboBB/scrapperMulti.py",
+		"/C/Users/Andre/Dropbox/freela/RoboBB/bbscrapper.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0 - 1.0/start.bat",
+		"/C/ProgramData/Anaconda3/lib/site-packages/keras/engine/training.py",
+		"/C/ProgramData/Anaconda3/lib/site-packages/keras/optimizers.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/MountainCar.ipynb",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0 - 1.0/MountainCar.ipynb",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/helper.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/Quadcopter.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agent/ddpg.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/task.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agent/replaybuffer.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agent/ounoise.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agent/critic.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agent/actor.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/sublimeproj.sublime-project",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agent/policy_search.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/ReplayBuffer.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/actor.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/critic.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/ounoise.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/replaybuffer.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/ddpg.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/Critic.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/OUNoise.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/DDPG.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/Helper.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/agents/Actor.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/task - Copy.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/reinforcement_learning/ddpg/mountaincar_ddpg.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/Noise.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/customer_segments/visuals.py",
+		"/C/Users/Andre/Dropbox/udacitytaxi.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/DDPG/Critic.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/MountainCarContinuous v0/helpers.py",
+		"/C/Users/Andre/Dropbox/freela/scrapperMulti.py",
+		"/C/Users/Andre/Dropbox/Udacity/Machine-Learning-Nanodegree/machine-learning/projects/RL-Quadcopter-2/ddpg.py",
+		"/C/Users/Andre/.exercism.json",
+		"/C/Users/Andre/Dropbox/freela/bbscrapper.py",
+		"/C/Users/Andre/Dropbox/freela/scrapper.py",
+		"/C/Users/Andre/Dropbox/freela/scrappercookie.py",
+		"/C/Users/Andre/Dropbox/freela/site.html",
+		"/C/Users/Andre/Dropbox/freela/IComparer.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/subsforblend/notblends/aaa.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/subsforblend/notblends/lazyensemble.py",
+		"/C/Users/Andre/Desktop/freela/scrappercookie.py",
+		"/C/Users/Andre/Desktop/freela/scrapper.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/subsforblend/notblends/sample_submission.csv",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/subsforblend/lazyensemble.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/blender.py",
+		"/C/Users/Andre/Downloads/script (5).py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/kaggle-toxic-starter/pipelines.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/kaggle-toxic-starter/models.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/ridge001.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/ridge001 - Copy.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/input/tfidfpickle.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/lightxgboof.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/public_kernels/001.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/public_kernels/003.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/input/tfidfpickle",
+		"/C/Users/Andre/Dropbox/DataScience/coment-toxicity/offclasstack.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/infinit_model.py",
+		"/C/Users/Andre/Dropbox/DataScience/coment-toxicity/comment_toxicity.py",
+		"/C/Users/Andre/Dropbox/DataScience/StackNet/example/example_amazon/prepare_data.py",
+		"/C/Users/Andre/Dropbox/repos/models/tutorials/image/cifar10/cifar10_train.py",
+		"/C/Users/Andre/Dropbox/DataScience/Kaggle/Toxic Comment Classification Challenge/oof_stacking.py",
+		"/C/Users/Andre/Downloads/script (3).py",
+		"/C/Users/Andre/Desktop/SELECT [01 AUX Frequencias ANATEL].Statusstate, [0",
+		"/C/Users/Andre/Dropbox/Kaggle/Toxic Comment Classification Challenge/infinit_model.py",
+		"/C/Users/Andre/Dropbox/WebDev/demosite/assets/css/styles.css",
+		"/C/Users/Andre/Dropbox/WebDev/demosite/index.html",
+		"/C/Users/Andre/AppData/Local/Temp/Temp1_css-project-starter-code.zip/css-project-starter-code/index.html",
+		"/C/Users/Andre/machine learning/python/DigitRecognizerTensor.py",
+		"/C/Users/Andre/AppData/Local/Temp/Temp1_html5up-miniport.zip/index.html",
+		"/C/Users/Andre/Documents/PlatformIO/Projects/171011-010547-d1/data/gearsgen.py",
+		"/C/Users/Andre/Documents/PlatformIO/Projects/171011-010547-d1/data/index.html",
+		"/C/Users/Andre/Desktop/xxx.html",
+		"/C/Users/Andre/Dropbox/WebDev/ColorGame/index.html",
+		"/C/Users/Andre/Dropbox/WebDev/ColorGame/colorGame.css",
+		"/C/Users/Andre/Desktop/robo/robosite.html",
+		"/C/Users/Andre/Documents/ColorGameSolution/colorGame.html",
+		"/C/Users/Andre/Dropbox/WebDev/Basics/basics.html",
+		"/C/Users/Andre/Documents/Rendinha.html",
+		"/C/Users/Andre/Dropbox/WebDev/JS/index.html",
+		"/C/Users/Andre/Documents/python/pythonforfinance/part1.py",
+		"/C/Users/Andre/Documents/python/pythonforfinance/part2.py",
+		"/C/Users/Andre/Desktop/Aeon/xmrig-2.3.1-gcc-win64/config.json",
+		"/C/Users/Andre/AppData/Roaming/nhm2/configs/benchmark_GEN-12ea6e202ef2e85a5ab43ea61deb7e1b4145387a27d621b4ffb1e147b6276c2a.json",
+		"/C/Users/Andre/AppData/Roaming/nhm2/configs/General.json",
+		"/C/Users/Andre/Documents/python/pythonforfinance/part3.py",
+		"/C/Users/Andre/Documents/python/pythonforfinance/part4.py",
+		"/C/Users/Andre/AppData/Roaming/nhm2/configs/MinerSystemVariables.json",
+		"/C/Users/Andre/Documents/python/backtesting.py",
+		"/C/Users/Andre/exercism/python/alphametics/lalal.cpp",
+		"/C/Users/Andre/exercism/python/alphametics/alphametics.py",
+		"/C/Users/Andre/exercism/python/gigasecond/gigasecond_test.py",
+		"/C/Users/Andre/exercism/python/gigasecond/gigasecond.py",
+		"/C/Users/Andre/exercism/python/pangram/pangram_test.py",
+		"/C/Users/Andre/exercism/python/pangram/pangram.py",
+		"/C/Users/Andre/exercism/python/leap/leap_test.py",
+		"/C/Users/Andre/exercism/python/leap/leap.py",
+		"/C/Users/Andre/exercism/python/hello-world/hello_world.py",
+		"/C/Users/Andre/exercism/python/hello-world/hello_world_test.py",
+		"/C/Users/Andre/Documents/Scripts/euler25.py",
+		"/C/Users/Andre/Documents/Scripts/euler15.py",
+		"/C/Users/Andre/Documents/Scripts/euler29.py",
+		"/C/Users/Andre/Documents/Scripts/euler21.py",
+		"/C/Users/Andre/Documents/Scripts/euler206.py",
+		"/C/Users/Andre/Downloads/FachadaWSSGS.wsdl",
+		"/C/Users/Andre/Documents/Scripts/euler18.py"
+	],
+	"find":
+	{
+		"height": 21.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"get_env",
+			"pprint",
+			"epsilon",
+			"segure",
+			"keyboard",
+			"io.",
+			"k",
+			"key",
+			"epsilon",
+			"done",
+			"3",
+			"done",
+			"last_reset",
+			"noise",
+			"learning",
+			"epoch",
+			"mem_full",
+			"acting",
+			"action_size",
+			"self.target_dist",
+			"target_pos",
+			"observing",
+			"out",
+			"reduce",
+			"chrome",
+			"consulta_cred",
+			"getsolve_captcha",
+			"kill_chrome",
+			"chrome",
+			"lista_renova",
+			"sem_pulaparcela",
+			"captcha",
+			"entrar_cpf",
+			"err",
+			"raise",
+			"df_renova",
+			"df_nova",
+			"captcha",
+			"threads",
+			"logout",
+			"Keys",
+			"sleep",
+			"request_all_data",
+			"drop_duplicates",
+			"scrapper_job",
+			"errs_type",
+			"err_type",
+			"request_all_data",
+			"entrar_cpf",
+			"getsolve",
+			"login",
+			"solve",
+			"get_solve_cap",
+			"captcha",
+			"NA_count",
+			"linha_novo",
+			"bake_coo",
+			"df_novo_job",
+			"cookies",
+			"sleep",
+			"sleeptime",
+			"sleep",
+			"IComparer",
+			"np",
+			"numpy",
+			"io",
+			"items",
+			"'items'",
+			"model",
+			"lgb",
+			"..",
+			"jigsaw-toxic-comment-classification-challenge/",
+			"labels",
+			"..",
+			"jigsaw-toxic-comment-classification-challenge/",
+			"nltk",
+			"Tkinter",
+			"'",
+			"a>",
+			"<a",
+			"li",
+			"40px",
+			")",
+			"ax1 = plt.subplot2grid((6,1), (0,0), rowspan=5, colspan=1)"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			".",
+			"",
+			".",
+			"",
+			"tkinter",
+			"\"",
+			"li>",
+			"<li",
+			"a"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "C:\\Users\\Andre\\Dropbox\\Udacity\\Machine-Learning-Nanodegree\\machine-learning\\projects\\MountainCarContinuous v0"
+		}
+	],
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 241.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 38.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 201.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

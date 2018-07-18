@@ -34,23 +34,11 @@ class Actor:
         # Define input layer (states)
         states = layers.Input(shape=(self.state_size,), name='states')
 
-        # hidden layers
-        # net_initializer = initializers.RandomUniform(
-            # minval=-2e-5, maxval=2e-5, seed=None)
-        # net_initializer = initializers.RandomNormal()
-        # net_regularizer = regularizers.l2(0.0)
-        # lin_states = layers.Dense(units=50, activation='linear')(states)
-        # net = layers.Dropout(0.6)(net)
-        # net = layers.Dense(units=50, activation='relu')(states)
-        # net = layers.Dense(units=20, activation='relu',
-        #                    kernel_initializer=net_initializer,
-        #                    kernel_regularizer=net_regularizer)(net)
-        # net = layers.Dropout(0.6)(net)
+        
+        net = layers.Dense(units=40, activation='relu')(states)
+        # net2 = layers.Dense(units=20, activation='relu')(states)
 
-        net1 = layers.Dense(units=20, activation='relu')(states)
-        net2 = layers.Dense(units=20, activation='relu')(states)
-
-        net = layers.Add()([net1, net2])
+        # net = layers.Add()([net1, net2])
 
         net = layers.Dense(units=20, activation='relu')(net)
 
