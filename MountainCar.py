@@ -11,10 +11,11 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 class MountainCar():
 
     def __init__(self):
-        self.env = self.get_env()
+        self.env = self.new_env()
         self.agent = DDPG()
 
-    def get_env(self):
+    def new_env(self):
+        gym.logger.set_level(40)  # to surpress warnings
         return gym.make('MountainCarContinuous-v0').unwrapped
 
     def preprocess_state(self, state):
@@ -24,9 +25,14 @@ class MountainCar():
         s[1] = ((state[1] + 0.07) / 0.14) * 2 - 1
         return s
 
-    def plot_Q(self, num):
-        state_step = 0.2
-        action_step = 0.2
+    def plot_Q(self):
+        """
+        Plots 4 heatmaps that shows the behavior of the
+        local critic and target when dealing with the state
+        and actions space
+        """
+        state_step = 0.1
+        action_step = 0.1
         plot_range = np.arange(-1, 1 + state_step, state_step)
         action_range = np.arange(-1, 1 + action_step, action_step)
         shape = plot_range.shape[0]
@@ -51,7 +57,7 @@ class MountainCar():
         extent = [plot_range[0], plot_range[-1], plot_range[0], plot_range[-1]]
 
         fig, ax = plt.subplots(2, 2, sharex=True)
-        ax[0, 0].set_title('Q value max ' + str(num))
+        ax[0, 0].set_title('Q value max')
         ax[0, 0].set_ylabel('Velocity')
         ax[0, 0].set_xlabel('Position')
         divider = make_axes_locatable(ax[0, 0])
@@ -117,7 +123,7 @@ class MountainCar():
             if done:
                 if render:  # workaround render errors
                     self.env.close()
-                    self.env = self.get_env()
+                    self.env = self.new_env()
                 break
 
         action_mean = np.mean(actions_list)
@@ -126,12 +132,26 @@ class MountainCar():
         return total_reward, done, action_mean, action_std, steps
 
     def run_model(self, max_epochs=100, n_solved=1, r_solved=90,
-                  max_steps=1000, plot_Q=False):
+                  max_steps=1000, plot_Q=False, verbose=1):
+        """
+        Train the learner
 
+        Params
+            ======
+                max_epochs (int): Maximum number of training episodes
+                max_steps (int): Maximum steps in each episode
+                r_solved (int): Minimum reward value to consider episode solved
+                n_solved (int): Targed number of solved episodes before break
+                plot_Q (bool): If true will plot state action values heatmaps
+                verbose (int): How much information each epoch will print,
+                  possible values are 1,0 and-1 in order of verbosity
+        """
+
+        solved = False
         train_hist = []
         test_hist = []
 
-        for epoch in range(1, max_epochs):
+        for epoch in range(1, max_epochs+1):
             train_reward, train_done, train_action_mean, train_action_std, \
                 train_steps = self.run_epoch(max_steps=max_steps)
             test_reward, test_done, test_action_mean, test_action_std, \
@@ -148,25 +168,43 @@ class MountainCar():
             if epoch > n_solved:
                 train_running = np.mean([r for r, s in train_hist][-n_solved:])
                 test_running = np.mean([r for r, s in test_hist][-n_solved:])
-                if test_running > r_solved:
-                    print('\nSolved! Average of {:4.1} reward in the last '
-                          '{:3d} episodes.'.format(test_running, n_solved))
-                    break
             else:
                 train_running = np.mean([r for r, s in train_hist])
                 test_running = np.mean([r for r, s in test_hist])
 
-            # print('Epoch:{:4d}\nTrain: reward:{: 6.1f} steps:{:5d} hist:'
-            #       '{: 6.1f} action/std:{: .3f}/{: .3f} \nTest:  reward:'
-            #       '{: 6.1f} steps:{:5d} hist:{: 6.1f} action/std:{: .3f}'
-            #       '/{: .3f}\n'.format(
-            #           epoch, train_reward, train_steps, train_running,
-            #           train_action_mean, train_action_std, test_reward,
-            #           test_steps, test_running, test_action_mean,
-            #           test_action_std))
-            print('Ep {:4d} train reward:{: 6.1f} test reward:{: 6.1f}'.format(
-                epoch, train_reward, test_reward), end='\r')
+            print_vals = np.array([epoch, train_reward, train_steps,
+                                   train_running, train_action_mean,
+                                   train_action_std, test_reward, test_steps,
+                                   test_running, test_action_mean,
+                                   test_action_std])
+
+            self.print_epoch(print_vals, verbose)
+            if test_running > r_solved and epoch > n_solved:
+                    print('\nSolved! Average of {:4.1f} from episode {:3d}'
+                          ' to {:3d}'.format(test_running, epoch -
+                                             n_solved + 1, epoch))
+                    solved = epoch
+                    break
 
         if plot_Q:
             self.plot_Q()
-        return train_hist, test_hist
+        return train_hist, test_hist, solved
+
+    def print_epoch(self, vals, verbose):
+        if verbose == 1:
+            pstr = ('Epoch:{:4}\nTrain: reward:{: 6.1f} steps:{:6.0f} hist:'
+                    '{: 6.1f} action/std:{: .3f}/{: .3f} \nTest:  reward:'
+                    '{: 6.1f} steps:{:6.0f} hist:{: 6.1f} action/std:{: .3f}'
+                    '/{: .3f}\n'.format(*vals))
+        elif verbose == 0:
+            pstr = ('Epoch {:4} train reward:{: 6.1f} test reward:{: 6.1f}'
+                    '\r'.format(*vals[[0, 1, 6]]))
+        elif verbose == -1:
+            return
+        print(pstr)
+
+
+if __name__ == '__main__':
+    print('Running learner directly')
+    Learner = MountainCar()
+    Learner.run_model(max_epochs=20, n_solved=1, plot_Q=False)

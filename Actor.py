@@ -1,9 +1,6 @@
-from keras import layers, models, optimizers
+from keras import layers, models, optimizers, initializers, regularizers
 from keras import backend as K
-import numpy as np
 
-from keras import layers, models, optimizers
-from keras import backend as K
 
 class Actor:
     """Actor (Policy) Model."""
@@ -28,18 +25,38 @@ class Actor:
 
         self.build_model()
 
-
     def build_model(self):
-        """Build an actor (policy) network that maps states -> actions."""
+        """
+        Build an actor (policy) network that maps states -> actions.
+        * In the MountainCar scenario there is no need to ajust the
+          action range because the tanh function output maps [-1,1]
+        """
         # Define input layer (states)
         states = layers.Input(shape=(self.state_size,), name='states')
 
         # hidden layers
-        net = layers.Dense(units=10, activation='relu')(states)
+        # net_initializer = initializers.RandomUniform(
+            # minval=-2e-5, maxval=2e-5, seed=None)
+        # net_initializer = initializers.RandomNormal()
+        # net_regularizer = regularizers.l2(0.0)
+        # lin_states = layers.Dense(units=50, activation='linear')(states)
+        # net = layers.Dropout(0.6)(net)
+        # net = layers.Dense(units=50, activation='relu')(states)
+        # net = layers.Dense(units=20, activation='relu',
+        #                    kernel_initializer=net_initializer,
+        #                    kernel_regularizer=net_regularizer)(net)
+        # net = layers.Dropout(0.6)(net)
 
-        # final output layer 
+        net1 = layers.Dense(units=20, activation='relu')(states)
+        net2 = layers.Dense(units=20, activation='relu')(states)
+
+        net = layers.Add()([net1, net2])
+
+        net = layers.Dense(units=20, activation='relu')(net)
+
+        # final output layer
         actions = layers.Dense(units=self.action_size, activation='tanh',
-            name='raw_actions')(net)
+                               name='raw_actions')(net)
 
         # Create Keras model
         self.model = models.Model(inputs=states, outputs=actions)
@@ -48,10 +65,10 @@ class Actor:
         action_gradients = layers.Input(shape=(self.action_size,))
         loss = K.mean(-action_gradients * actions)
 
-
         # Define optimizer and training function
-        optimizer = optimizers.Adam(lr=0.001)
-        updates_op = optimizer.get_updates(params=self.model.trainable_weights, loss=loss)
+        optimizer = optimizers.Adam(lr=0.0001)
+        updates_op = optimizer.get_updates(
+            params=self.model.trainable_weights, loss=loss)
         self.train_fn = K.function(
             inputs=[self.model.input, action_gradients, K.learning_phase()],
             outputs=[],
