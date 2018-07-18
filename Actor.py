@@ -36,9 +36,8 @@ class Actor:
 
         # hidden layers
         net = layers.Dense(units=10, activation='relu')(states)
-        # net = layers.Dense(units=60, activation='relu')(net)
 
-        #final output layer 
+        # final output layer 
         actions = layers.Dense(units=self.action_size, activation='tanh',
             name='raw_actions')(net)
 

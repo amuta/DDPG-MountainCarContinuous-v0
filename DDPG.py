@@ -6,8 +6,8 @@ import numpy as np
 
 class DDPG():
     """Reinforcement Learning agent that learns using DDPG."""
-    def __init__(self, task):
-        self.task = task
+    def __init__(self):
+        # self.task = task
         self.state_size = 2
         self.action_size = 1
         self.action_low = -1
@@ -41,11 +41,9 @@ class DDPG():
         self.tau_actor = 0.01  # for soft update of target parameters
         self.tau_critic = 0.05
 
-    def reset_episode(self):
+    def reset_episode(self, state):
         self.noise.reset()
-        state = self.task.reset()
         self.last_state = state
-        return state
 
     def step(self, action, reward, next_state, done):
          # Save experience / reward
@@ -59,11 +57,11 @@ class DDPG():
         # Roll over last state and action
         self.last_state = next_state
 
-    def act(self, state, epsilon=1):
+    def act(self, state):
         """Returns actions for given state(s) as per current policy."""
         state = np.reshape(state, [-1, self.state_size])
         pure_action = self.actor_local.model.predict(state)[0]
-        noise = self.noise.sample() * epsilon
+        noise = self.noise.sample()
         return list(pure_action + noise), pure_action  # add some noise for exploration
 
     def learn(self, experiences):
