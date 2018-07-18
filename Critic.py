@@ -34,8 +34,6 @@ class Critic:
 
         # Add final output layer to prduce action values (Q values)
         Q_values = layers.Dense(units=1, name='q_values')(net)
-        # Q_values = layers.Dense(units=1, name='q_values')(net_actions)
-        # Q_values = layers.Dense(units=1, activation='tanh', name='q_values')(net_actions)
 
         # Create Keras model
         self.model = models.Model(inputs=[states, actions], outputs=Q_values)
