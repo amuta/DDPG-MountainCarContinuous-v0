@@ -1,4 +1,4 @@
-from keras import layers, models, optimizers, initializers
+from keras import layers, models, optimizers, initializers, regularizers
 from keras import backend as K
 import numpy as np
 
@@ -20,18 +20,6 @@ class Critic:
 
         self.build_model()
 
-    def reset_weights(self):
-        session = K.get_session()
-        for layer in self.model.layers: 
-            if hasattr(layer, 'kernel_initializer'):
-                layer.kernel.initializer.run(session=session)
-        # for i in [2,3,4,5]:
-        #     # w_mean = np.mean([w for w in self.model.layers[i].get_weights()[0]])
-        #     # b_mean = np.mean([b for b in self.model.layers[i].get_weights()[1]])
-        #     w_new = [w*rate for w in self.model.layers[i].get_weights()[0]]
-        #     b_new = [b*rate for b in self.model.layers[i].get_weights()[1]]
-        #     K.set_value(self.model.layers[i].weights[0], w_new)
-        #     K.set_value(self.model.layers[i].weights[1], b_new)
 
     def build_model(self):
         """Build a critic (value) network that maps (state, action) pairs -> Q-values."""
@@ -40,36 +28,21 @@ class Critic:
         actions = layers.Input(shape=(self.action_size,), name='actions')
 
         # Add hidden layer(s) for state pathway
-        net_states = layers.Dense(units=16, activation='relu', kernel_initializer='random_uniform')(states)
-        net_states = layers.Dense(units=4, activation='relu', kernel_initializer='random_uniform')(net_states)
-
-        # Add hidden layer(s) for action pathway
-        net_actions = layers.Dense(units=16, activation='relu', kernel_initializer='random_uniform')(actions)
-        net_actions = layers.Dense(units=4, activation='relu', kernel_initializer='random_uniform')(net_actions)
-
-        # Try different layer sizes, activations, add batch normalization, regularizers, etc.
-        
-
-        # Combine state and action pathways
-        net = layers.Add()([net_states, net_actions])
-        net = layers.Activation('sigmoid')(net)
-
-        # Add more layers to the combined network if needed
+        net = layers.Dense(units=20, activation='relu')(states)
+        net = layers.Add()([net, actions])
+        net = layers.Dense(units=20, activation='relu')(net)
 
         # Add final output layer to prduce action values (Q values)
         Q_values = layers.Dense(units=1, name='q_values')(net)
+        # Q_values = layers.Dense(units=1, name='q_values')(net_actions)
+        # Q_values = layers.Dense(units=1, activation='tanh', name='q_values')(net_actions)
 
         # Create Keras model
         self.model = models.Model(inputs=[states, actions], outputs=Q_values)
-        # print('len layers', len(self.model.layers), flush=True)
-        # for i in range(len(self.model.layers)):
-        
-        # print('aeho', self.model.layers[i], flush=True)
+
         # Define optimizer and compile model for training with built-in loss function
-        optimizer = optimizers.Adam()
+        optimizer = optimizers.Adam(lr=0.01)
         self.model.compile(optimizer=optimizer, loss='mse')
-        # self.new_weights()
-        # self.normalize(0.1)
 
         # Compute action gradients (derivative of Q values w.r.t. to actions)
         action_gradients = K.gradients(Q_values, actions)

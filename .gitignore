@@ -1,2 +1,3 @@
 start.bat
 __pycache__
+*ipynb*

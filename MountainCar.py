@@ -1,6 +1,5 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="-1"    
-import tensorflow as tf
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 
 # Importing important things
 from DDPG import DDPG
@@ -8,187 +7,175 @@ from ReplayBuffer import ReplayBuffer
 from OUNoise import OUNoise
 import gym
 import numpy as np
-import os
+import msvcrt
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from pprint import pprint
+
+
+env_raw = gym.make('MountainCarContinuous-v0')
+env = env_raw.unwrapped
+agent = DDPG(env)
+
+max_epochs = 100
+max_steps = 1000
+solved = False
+rewards_hist = []
+test_hist = []
 
 def preprocess_state(state):
     s = np.array(state)  # mapping the state values to [-1,1]
-    s[0] = (state[0] - 0.30) / 0.9
-    s[1] = (state[1] - 0.00) / 0.07
+    s[0] = ((state[0] + 1.2) / 1.8)*2-1
+    s[1] = ((state[1] + 0.07) / 0.14)*2-1
     return s
 
-env = gym.make('MountainCarContinuous-v0')
-env = env.unwrapped
-action_low = -1
-action_high = 1
-buffer_size = 16000
-batch_size = 1024
-agent = DDPG(action_low, action_high, buffer_size, batch_size)
-agent.actor_local.reset_weights()
-agent.actor_target.reset_weights()
-agent.critic_local.reset_weights()
-agent.critic_target.reset_weights()
-noise = OUNoise(mu=0.3)
-# np.random.seed(2018)
-learning_epochs = int(buffer_size)
-episodes = 800
-epochs = 2000
-epsilon = 1
-total_epochs = 0
-start_act = 50
-learning = True
-acting = False
-stuck = False
-done = False
-stop_train = False
-final_flag = True
-rewards_hist = []
-last_reset = 0
-max_reward = -np.inf
-last_max = 0
 
-print('Start learning phase...')
-for i_episode in range(1, episodes):
-    mem_len = agent.memory.__len__()
-    mem_full = mem_len >= buffer_size
-    if mem_len >= learning_epochs:
-        learning = False
-    if i_episode > start_act:
-        acting = True
+def plot_Q(agent, num):
+    state_step = 0.2
+    action_step = 0.2
+    plot_range = np.arange(-1,1+state_step,state_step)
+    action_range = np.arange(-1,1+action_step,action_step)
+    shape = plot_range.shape[0]
+    matrix_Q = np.ones((shape,shape))
+    matrix_mQ = np.ones((shape,shape))
+    matrix_sQ = np.ones((shape,shape))
+    matrix_A = np.ones((shape,shape))
+    for i in range(shape):
+        for j in range(shape):
+            pos = plot_range[j]
+            vel = plot_range[i]
+            state = np.array([pos,vel]).reshape(-1,2)
+            # print(state)
+            best_Q = -np.inf
+            Q_list = []
+            for a in action_range:
+                action = np.array(a).reshape(-1,1)
+                Q_list.append(agent.critic_local.model.predict([state, action]))
+            matrix_Q[i][j] = np.max(Q_list)
+            matrix_sQ[i][j] = np.std(Q_list)
+            matrix_mQ[i][j] = action_range[np.argmax(Q_list)]
+            # prefered action
+            matrix_A[i][j] = agent.actor_local.model.predict(state)
+    extent = [plot_range[0], plot_range[-1], plot_range[0], plot_range[-1]]
 
-    
-    if done and acting and i_episode > (last_reset+10):
-        # epochs = max(epochs-15, 200)
-        epsilon = max(epsilon-0.1, 0)
-    else:
-        # epochs = min(epochs+15, 3000)
-        epsilon = min(epsilon+0.05, 1)
-        if stuck > 30 and i_episode > (last_reset+5*buffer_size/epochs):
-            print('Stuck!! Reseting learner weights and memory...')
-            epsilon = 1
-            agent.build_models()
-            stuck = 0
-            # agent.memory.reset()
-            last_reset = i_episode
-            agent.actor_local.reset_weights()
-            agent.actor_target.reset_weights()
-            agent.critic_local.reset_weights()
-            agent.critic_target.reset_weights()
-    # if last_max > 30 and epsilon < 0.1:
-        # epsilon = 0.08
-    if stop_train:
-        done = False
-
-    state = env.reset()
-    state = preprocess_state(state)
-    noise.reset()
-    agent.reset_episode(state, learning, 1, True)
-    epoch = 0
-    
-    rewards = []
-    agent_actions = []
-    noise_actions = []
+    fig, ax = plt.subplots(2,2, sharex=True)
+    ax[0, 0].set_title('Q value max' + str(num))
+    ax[0, 0].set_ylabel('Velocity')
+    ax[0, 0].set_xlabel('Position')
+    divider = make_axes_locatable(ax[0, 0])
+    cax = divider.append_axes('right', size='5%', pad=0.05)
+    im = ax[0, 0].imshow(matrix_Q, extent=extent, origin='lower')
+    plt.colorbar(im, cax=cax)
 
 
-    while True:
-        agent_action = agent.act(state)[0]
-        action = np.clip((1 - epsilon) * agent_action + epsilon * noise.sample(), -1, 1)
+    ax[0, 1].set_title('Q value std')
+    ax[0, 1].set_ylabel('Velocity')
+    ax[0, 1].set_xlabel('Position')
+    divider = make_axes_locatable(ax[0, 1])
+    cax = divider.append_axes('right', size='5%', pad=0.05)
+    im = ax[0, 1].imshow(matrix_sQ, extent=extent, origin='lower')
+    plt.colorbar(im, cax=cax)
 
-        if epoch > epochs:
-            break
+    ax[1, 0].set_title('Action with Q max')
+    ax[1, 0].set_ylabel('Velocity')
+    ax[1, 0].set_xlabel('Position')
+    divider = make_axes_locatable(ax[1, 0])
+    cax = divider.append_axes('right', size='5%', pad=0.05)
+    im = ax[1, 0].imshow(matrix_mQ, extent=extent, origin='lower')
+    plt.colorbar(im, cax=cax)
 
-        agent_actions.append(agent_action)
-        noise_actions.append(action)
-        next_state, reward, done, info = env.step(action)
-#         reward = done * 100 - 1
-        next_state = preprocess_state(next_state)
-        rewards.append(reward)
-        agent.step(state, action, reward, next_state, done, learning)
-        state = next_state
-        
-        
-        total_epochs += 1
-        epoch += 1
-        
-        if done:
-            break
-        
-    noise.reset()
-    final_reward = np.sum(rewards)
-    
-    num_epochs = len(rewards)
-    mean_action = np.mean(agent_actions)
-    mean_noise = np.mean(noise_actions)
-    std_action = np.std(agent_actions)
-    std_noise = np.std(noise_actions)
-    rewards_hist.append(final_reward)
+    ax[1, 1].set_title('Predicted Action')
+    ax[1, 1].set_ylabel('Velocity')
+    ax[1, 1].set_xlabel('Position')
+    divider = make_axes_locatable(ax[1, 1])
+    cax = divider.append_axes('right', size='5%', pad=0.05)
+    im = ax[1, 1].imshow(matrix_A, extent=extent, origin='lower')
+    plt.colorbar(im, cax=cax)
 
-    if len(rewards_hist) > 30:
-        mean_hist = np.mean(rewards_hist[len(rewards_hist)-20:])
-        # early stop if mean of 15 episodes > 90
+    plt.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.25,
+                        wspace=0.4)
 
-        if mean_hist > max_reward:
-            max_reward = mean_hist
-            last_max = 0
-        else:
-            last_max += 1
+    plt.show()
 
-        # CHECK SUCCESS
-        if final_reward > 90 and epsilon < 0.05:
-            break
-        if mean_hist < 60 and mem_full:
-            stuck += 1
-        else:
-            stuck = min(stuck - 1, 0)
-
-    else:
-        mean_hist = np.mean(rewards_hist)
-    
-    
-
-    if i_episode % 1 == 0:
-        print('Ep:{: 4d} R:{: 4.2f} epo:{:04d}/{:04d} amu:{: 1.3f} asd:{: 1.3f} nmu:{: 1.3f} nsd:{: 1.3f}'
-        ' eps:{: 1.3f} mem:{: 5d} d:{} hs:{: 4.2f} mrh: {: 4.2f}'.
-              format(i_episode, final_reward, num_epochs, epochs, mean_action, std_action, 
-                mean_noise, std_noise, epsilon, mem_len, done, mean_hist, max_reward))
-
-
-
-# testing the model
-
-render = False
-input('lets take a look at the model')
-tests = 100
-success = 100
-rewards_hist = []
-for i_episode in range(tests):
-    state = env.reset()
-    state = preprocess_state(state)
-    noise.reset()
-    agent.reset_episode(state, learning, 10, False)
-    epoch = 0
-    rewards = []
+for epoch in range(1, max_epochs):
+    steps = 0
+    state = preprocess_state(agent.reset_episode())
+    rewards_list = []
+    actions_list = []
 
     while True:
-        if epoch > 5000:
-            success -= 1
-            break
-        action = [np.clip(agent.act(state)[0], -1, 1)]
+        
+        action, pure_action = agent.act(state)
         next_state, reward, done, info = env.step(action)
         next_state = preprocess_state(next_state)
-        rewards.append(reward)
+        agent.step(action, reward, next_state, done)
         state = next_state
-        if i_episode > 95:
-            env.render()
+        rewards_list.append(reward)
+        actions_list.append(pure_action)
 
-        total_epochs += 1
-        epoch += 1
-        
-        if done:
+
+        # if epoch > 30:
+        #     env.render()
+
+        if steps > max_steps or done:
             break
-    final_reward = np.sum(rewards)
-    num_epochs = len(rewards)
-    rewards_hist.append(final_reward)
+        steps += 1
 
+    test = True
+    p_done = done
+
+    final_test_r = 0
+    if test :
+        test_rewards = []
+        test_steps = 0
+        state = agent.reset_episode()
+        while True:
+            _, pure_action = agent.act(preprocess_state(state))
+            state, reward, done, info = env.step(pure_action)
+            test_rewards.append(reward)
+            # if epoch > max_epochs - 1:
+                # env.render()
+            if test_steps > max_steps or done:
+                break
+            test_steps += 1
+        final_test_r = np.sum(test_rewards)
+
+    final_reward = np.sum(rewards_list)
+    mean_action = np.mean(actions_list)
+    std_action = np.std(actions_list)
+    rewards_hist.append(final_reward)    
+    test_hist.append(final_test_r)  
+
+    if epoch > 50:
+        mean_rewards = np.mean(rewards_hist[epoch-50:])
+        mean_test = np.mean(test_hist[epoch-50:])
+
+        if mean_test > 90 and np.min(mean_test) > 80:
+            print('Solved!')
+            solved = True
+    else:
+        mean_rewards = np.mean(rewards_hist)
+        mean_test = np.mean(test_hist)
+
+    print('Epo:{:4d} Ste:{:5d} Don:{:1d} Rew:{: 5.1f} Hst:{: 5.1f} '
+        'Act:{: .3f}/{: .3f} Tst:{: 5.1f} Don:{:1d} THst:{: 5.1f}' .format(epoch,
+                                                   steps,
+                                                   int(p_done),
+                                                   final_reward,
+                                                   mean_rewards,
+                                                   mean_action,
+                                                   std_action,
+                                                   final_test_r,
+                                                   int(done),
+                                                   mean_test))
     
-    print('Ep:{: 4d} R:{: 4.2f} epo:{:04d}'.format(i_episode, final_reward, num_epochs))
-print('MEAN REWARD:{: 4.2f}'.format(np.mean(rewards_hist)))
+
+    plot = True
+    if epoch == max_epochs-1 or solved:
+        env.close()
+        random_num = np.random.randint(0,1000)
+        print(random_num)
+        plot_Q(agent, random_num)
+        break
+
+pprint(vars(agent))
