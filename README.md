@@ -1,4 +1,6 @@
-### DDPG solving Openai Gym - Mountain Car Continuous problem
+## Mountain Car Continuous problem 
+
+### DDPG solving Openai Gym
 
 Without any seed it can solve within 2 episodes but on average it takes 4-6
 The Learner class have a plot_Q method that will plot some very usefull graphs to tweak the model
@@ -10,7 +12,7 @@ the learner will be tested against the environment without any noise in the acti
 steps of every episode.
 
 
-## Project Instructions
+### Project Instructions
 
 1. Run the MountainCar.py file directly or import it on the notebook.
 
@@ -36,3 +38,7 @@ Or
 
 3. Before running make sure to have the necessary modules
 
+
+---------------------
+#### References
+This project was create while I was attending the Udacity's Machine Learning Engineer Nanodegree all files except `MountainCar.py` contains mostly tweaked boilerplate code of the DDPG model provided. You can probably find the originals [here](https://github.com/udacity/deep-reinforcement-learning)
