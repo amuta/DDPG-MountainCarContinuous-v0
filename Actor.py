@@ -28,7 +28,7 @@ class Actor:
     def build_model(self):
         """
         Build an actor (policy) network that maps states -> actions.
-        * In the MountainCar scenario there is no need to ajust the
+        * In the MountainCar scenario there is no need to adjust the
           action range because the tanh function output maps [-1,1]
         """
         # Define input layer (states)
